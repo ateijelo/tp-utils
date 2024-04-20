@@ -89,7 +89,7 @@ public class Commands {
                                         .executes(ctx -> {
                                             String command = getString(ctx, "command");
                                             TpUtils.getConfig().setTpMethod(command);
-                                            InfoProvider.sendMessage(Text.translatable("text.tp_utils.message.newCommandSet", command));
+                                            InfoProvider.sendMessage(Text.translatable("text.tputils.message.newCommandSet", command));
                                             return 1;
                                         })))));
     }

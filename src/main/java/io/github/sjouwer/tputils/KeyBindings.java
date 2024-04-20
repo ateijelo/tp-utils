@@ -7,7 +7,8 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {
-    private static final String CATEGORY = "key.categories.tp_utils";
+    private static final String CATEGORY = "key.categories." + TpUtils.NAMESPACE;
+    private static final String BASE_KEY = "key." + TpUtils.NAMESPACE;
 
     private KeyBindings() {
     }
@@ -20,7 +21,7 @@ public class KeyBindings {
     }
 
     private static void registerTPThroughKey() {
-        KeyBinding tpThroughKey = new KeyBinding("key.tp_utils.tp_through", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5, CATEGORY);
+        KeyBinding tpThroughKey = new KeyBinding(BASE_KEY + ".tpThrough", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpThroughKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -31,7 +32,7 @@ public class KeyBindings {
     }
 
     private static void registerTPOnTopKey() {
-        KeyBinding tpOnTopKey = new KeyBinding("key.tp_utils.tp_on_top", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4, CATEGORY);
+        KeyBinding tpOnTopKey = new KeyBinding(BASE_KEY + ".tpOnTop", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpOnTopKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -42,7 +43,7 @@ public class KeyBindings {
     }
 
     private static void registerTPForwardKey() {
-        KeyBinding tpForwardKey = new KeyBinding("key.tp_utils.tp_forward", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
+        KeyBinding tpForwardKey = new KeyBinding(BASE_KEY + ".tpForward", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpForwardKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -53,7 +54,7 @@ public class KeyBindings {
     }
 
     private static void registerTPBackKey() {
-        KeyBinding tpBackKey = new KeyBinding("key.tp_utils.tp_back", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
+        KeyBinding tpBackKey = new KeyBinding(BASE_KEY + ".tpBack", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY);
         KeyBindingHelper.registerKeyBinding(tpBackKey);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

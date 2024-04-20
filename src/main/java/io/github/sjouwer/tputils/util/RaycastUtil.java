@@ -7,10 +7,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
-public final class Raycast {
+public final class RaycastUtil {
     private static final MinecraftClient minecraft = MinecraftClient.getInstance();
 
-    private Raycast() {
+    private RaycastUtil() {
     }
 
     /**

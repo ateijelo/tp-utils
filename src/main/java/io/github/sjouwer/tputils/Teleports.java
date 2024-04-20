@@ -3,7 +3,7 @@ package io.github.sjouwer.tputils;
 import io.github.sjouwer.tputils.config.ModConfig;
 import io.github.sjouwer.tputils.util.BlockCheck;
 import io.github.sjouwer.tputils.util.InfoProvider;
-import io.github.sjouwer.tputils.util.Raycast;
+import io.github.sjouwer.tputils.util.RaycastUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -20,7 +20,7 @@ public class Teleports {
     }
 
     public static void tpThrough() {
-        HitResult hit = Raycast.forwardFromPlayer(config.getTpThroughRange());
+        HitResult hit = RaycastUtil.forwardFromPlayer(config.getTpThroughRange());
 
         MutableText error;
         if (hit.getType() == HitResult.Type.BLOCK) {
@@ -29,10 +29,10 @@ public class Teleports {
                 tpToBlockPos(pos);
                 return;
             }
-            error = Text.translatable("text.tp_utils.message.tooMuchWall");
+            error = Text.translatable("text.tputils.message.tooMuchWall");
         }
         else {
-            error = Text.translatable("text.tp_utils.message.noObstacleFound");
+            error = Text.translatable("text.tputils.message.noObstacleFound");
         }
 
         InfoProvider.sendError(error);
@@ -40,7 +40,7 @@ public class Teleports {
 
     public static void tpOnTop(HitResult hit) {
         if (hit == null) {
-            hit = Raycast.forwardFromPlayer(config.getTpOnTopRange());
+            hit = RaycastUtil.forwardFromPlayer(config.getTpOnTopRange());
         }
 
         if (hit.getType() == HitResult.Type.BLOCK) {
@@ -52,11 +52,11 @@ public class Teleports {
             }
         }
 
-        InfoProvider.sendError(Text.translatable("text.tp_utils.message.noBlockFound"));
+        InfoProvider.sendError(Text.translatable("text.tputils.message.noBlockFound"));
     }
 
     public static void tpForward() {
-        HitResult hit = Raycast.forwardFromPlayer(config.getTpForwardRange());
+        HitResult hit = RaycastUtil.forwardFromPlayer(config.getTpForwardRange());
         double distance = client.cameraEntity.getEyePos().distanceTo(hit.getPos());
         BlockPos pos = BlockCheck.findOpenSpotBackwards(hit, distance);
 
@@ -67,10 +67,10 @@ public class Teleports {
                 tpToBlockPos(pos);
                 return;
             }
-            error = Text.translatable("text.tp_utils.message.cantMoveForward");
+            error = Text.translatable("text.tputils.message.cantMoveForward");
         }
         else {
-            error = Text.translatable("text.tp_utils.message.obstructed");
+            error = Text.translatable("text.tputils.message.obstructed");
         }
 
         InfoProvider.sendError(error);
@@ -78,15 +78,15 @@ public class Teleports {
 
     public static void tpGround(HitResult hit) {
         if (hit == null) {
-            hit = Raycast.downwardFromPlayer(config.isLavaAllowed());
+            hit = RaycastUtil.downwardFromPlayer(config.isLavaAllowed());
         }
 
         MutableText error;
         if (hit.getPos().getY() == client.player.getPos().getY()) {
-            error = Text.translatable("text.tp_utils.message.alreadyGrounded");
+            error = Text.translatable("text.tputils.message.alreadyGrounded");
         }
         else if (hit.getPos().getY() == client.world.getBottomY()) {
-            error = Text.translatable("text.tp_utils.message.noGroundFound");
+            error = Text.translatable("text.tputils.message.noGroundFound");
         }
         else {
             tpToExactPos(hit.getPos());
@@ -97,31 +97,31 @@ public class Teleports {
     }
 
     public static void tpUp() {
-        HitResult hit = Raycast.upwardFromPlayer();
+        HitResult hit = RaycastUtil.upwardFromPlayer();
         if (hit.getPos().y < client.world.getHeight()){
             tpOnTop(hit);
             return;
         }
 
-        InfoProvider.sendError(Text.translatable("text.tp_utils.message.nothingAbove"));
+        InfoProvider.sendError(Text.translatable("text.tputils.message.nothingAbove"));
     }
 
     public static void tpDown() {
-        HitResult hit = Raycast.downwardFromPlayer(false);
+        HitResult hit = RaycastUtil.downwardFromPlayer(false);
 
         MutableText error;
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockPos hitPos = ((BlockHitResult)hit).getBlockPos();
             BlockPos bottomPos = BlockCheck.findBottomOpenSpot(hitPos);
             if (bottomPos != null && bottomPos.getY() > client.world.getBottomY()) {
-                hit = Raycast.downwardFromPos(bottomPos, false);
+                hit = RaycastUtil.downwardFromPos(bottomPos, false);
                 tpGround(hit);
                 return;
             }
-            error = Text.translatable("text.tp_utils.message.noOpenSpaceBelow");
+            error = Text.translatable("text.tputils.message.noOpenSpaceBelow");
         }
         else {
-            error = Text.translatable("text.tp_utils.message.nothingBelow");
+            error = Text.translatable("text.tputils.message.nothingBelow");
         }
 
         InfoProvider.sendError(error);
@@ -133,7 +133,7 @@ public class Teleports {
             tpToExactPos(coordinates);
         }
         else {
-            InfoProvider.sendError(Text.translatable("text.tp_utils.message.noPreviousLocation"));
+            InfoProvider.sendError(Text.translatable("text.tputils.message.noPreviousLocation"));
         }
     }
 

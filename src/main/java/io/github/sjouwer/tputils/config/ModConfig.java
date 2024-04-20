@@ -8,7 +8,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Excluded;
 import net.minecraft.util.math.Vec3d;
 
 @SuppressWarnings("FieldMayBeFinal")
-@Config(name = "tp_utils")
+@Config(name = TpUtils.NAMESPACE)
 public class ModConfig implements ConfigData {
     @Tooltip
     private String tpMethod = "/tp";
