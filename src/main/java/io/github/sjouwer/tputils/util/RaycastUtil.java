@@ -8,7 +8,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 public final class RaycastUtil {
-    private static final MinecraftClient minecraft = MinecraftClient.getInstance();
+    private static final MinecraftClient client = MinecraftClient.getInstance();
 
     private RaycastUtil() {
     }
@@ -19,11 +19,12 @@ public final class RaycastUtil {
      * @return Result of the Raycast
      */
     public static HitResult forwardFromPlayer(int range) {
-        Entity player = minecraft.cameraEntity;
-        Vec3d vector = player.getRotationVec(minecraft.getTickDelta());
-        Vec3d rayStart = player.getCameraPosVec(minecraft.getTickDelta());
+        float tickDelta = client.getRenderTickCounter().getTickDelta(true);
+        Entity player = client.cameraEntity;
+        Vec3d vector = player.getRotationVec(tickDelta);
+        Vec3d rayStart = player.getCameraPosVec(tickDelta);
         Vec3d rayEnd = rayStart.add(vector.multiply(range));
-        return minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, player));
+        return client.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, player));
     }
 
     /**
@@ -32,7 +33,7 @@ public final class RaycastUtil {
      * @return Result of the Raycast
      */
     public static HitResult downwardFromPlayer(boolean isLavaAllowed) {
-        BlockPos pos = BlockPos.ofFloored(minecraft.cameraEntity.getEyePos());
+        BlockPos pos = BlockPos.ofFloored(client.cameraEntity.getEyePos());
         return downwardFromPos(pos, isLavaAllowed);
     }
 
@@ -44,17 +45,17 @@ public final class RaycastUtil {
      */
     public static HitResult downwardFromPos(BlockPos pos, boolean isLavaAllowed) {
         double x = pos.getX() + 0.5;
-        double y = Math.min(pos.getY(), minecraft.world.getHeight() + 1);
+        double y = Math.min(pos.getY(), client.world.getHeight() + 1);
         double z = pos.getZ() + 0.5;
 
         Vec3d rayStart = new Vec3d(x, y, z);
-        Vec3d rayEnd = new Vec3d(x, minecraft.world.getBottomY(), z);
+        Vec3d rayEnd = new Vec3d(x, client.world.getBottomY(), z);
 
-        HitResult hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
+        HitResult hit = client.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, client.player));
 
         boolean hitLava = BlockCheck.isLava(BlockPos.ofFloored(hit.getPos()));
         if (hitLava && !isLavaAllowed) {
-            hit = minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.ANY, minecraft.player));
+            hit = client.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.ANY, client.player));
         }
 
         return hit;
@@ -65,7 +66,7 @@ public final class RaycastUtil {
      * @return Result of the Raycast
      */
     public static HitResult upwardFromPlayer() {
-        BlockPos pos = BlockPos.ofFloored(minecraft.cameraEntity.getEyePos());
+        BlockPos pos = BlockPos.ofFloored(client.cameraEntity.getEyePos());
         return upwardFromPos(pos);
     }
 
@@ -76,12 +77,12 @@ public final class RaycastUtil {
      */
     public static HitResult upwardFromPos(BlockPos pos) {
         double x = pos.getX() + 0.5;
-        double y = Math.max(pos.getY(), minecraft.world.getBottomY() - 1);
+        double y = Math.max(pos.getY(), client.world.getBottomY() - 1);
         double z = pos.getZ() + 0.5;
 
         Vec3d rayStart = new Vec3d(x, y, z);
-        Vec3d rayEnd = new Vec3d(x, minecraft.world.getHeight(), z);
+        Vec3d rayEnd = new Vec3d(x, client.world.getHeight(), z);
 
-        return minecraft.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, minecraft.player));
+        return client.world.raycast(new RaycastContext(rayStart, rayEnd, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, client.player));
     }
 }
