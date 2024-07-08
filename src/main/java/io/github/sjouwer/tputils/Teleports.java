@@ -19,6 +19,8 @@ public class Teleports {
     }
 
     public static void tpThrough() {
+        if (config.isEnabledOnlyInCreative() && !client.player.isCreative())
+            return;
         HitResult hit = RaycastUtil.forwardFromPlayer(config.getTpThroughRange());
 
         if (hit.getType() != HitResult.Type.BLOCK) {
@@ -36,6 +38,8 @@ public class Teleports {
     }
 
     public static void tpOnTop(HitResult hit) {
+        if (config.isEnabledOnlyInCreative() && !client.player.isCreative())
+            return;
         if (hit == null) {
             hit = RaycastUtil.forwardFromPlayer(config.getTpOnTopRange());
         }
@@ -51,6 +55,8 @@ public class Teleports {
     }
 
     public static void tpForward() {
+        if (config.isEnabledOnlyInCreative() && !client.player.isCreative())
+            return;
         HitResult hit = RaycastUtil.forwardFromPlayer(config.getTpForwardRange());
         double distance = client.cameraEntity.getEyePos().distanceTo(hit.getPos());
         BlockPos pos = BlockCheck.findOpenSpotBackwards(hit, distance);
@@ -70,6 +76,8 @@ public class Teleports {
     }
 
     public static void tpGround(HitResult hit) {
+        if (config.isEnabledOnlyInCreative() && !client.player.isCreative())
+            return;
         if (hit == null) {
             hit = RaycastUtil.downwardFromPlayer(config.isLavaAllowed());
         }
@@ -88,6 +96,8 @@ public class Teleports {
     }
 
     public static void tpUp() {
+        if (config.isEnabledOnlyInCreative() && !client.player.isCreative())
+            return;
         HitResult hit = RaycastUtil.upwardFromPlayer();
         if (hit.getPos().y >= client.world.getHeight()) {
             InfoProvider.sendError(Text.translatable("text.tputils.message.nothingAbove"));
@@ -98,6 +108,8 @@ public class Teleports {
     }
 
     public static void tpDown() {
+        if (config.isEnabledOnlyInCreative() && !client.player.isCreative())
+            return;
         HitResult hit = RaycastUtil.downwardFromPlayer(false);
 
         if (hit.getType() != HitResult.Type.BLOCK) {
@@ -117,6 +129,8 @@ public class Teleports {
     }
 
     public static void tpBack() {
+        if (config.isEnabledOnlyInCreative() && !client.player.isCreative())
+            return;
         Vec3d coordinates = config.getPreviousLocation();
         if (coordinates == null) {
             InfoProvider.sendError(Text.translatable("text.tputils.message.noPreviousLocation"));

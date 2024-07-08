@@ -26,6 +26,8 @@
     "text.autoconfig.tputils.option.allowLava.@Tooltip": "Allow the mod to teleport you into lava",
     "text.autoconfig.tputils.option.setBedrockLimit": "Set Bedrock Limit",
     "text.autoconfig.tputils.option.setBedrockLimit.@Tooltip": "Stop the mod from teleporting you below \nbedrock / the bottom world limit",
+    "text.autoconfig.tputils.option.enabledOnlyInCreative": "Enable only in Creative Mode",
+    "text.autoconfig.tputils.option.enabledOnlyInCreative.@Tooltip": "Teleportations will only work in Creative Mode",
 
     "text.tputils.message.tooMuchWall": "Too much wall. You shall not pass!",
     "text.tputils.message.noObstacleFound": "Nothing to pass through!",

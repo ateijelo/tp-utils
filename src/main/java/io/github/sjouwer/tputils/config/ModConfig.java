@@ -26,6 +26,8 @@ public class ModConfig implements ConfigData {
     private boolean allowLava = false;
     @Tooltip
     private boolean setBedrockLimit = true;
+    @Tooltip
+    private boolean enabledOnlyInCreative = true;
     @Excluded
     private Vec3d previousLocation;
 
@@ -70,6 +72,10 @@ public class ModConfig implements ConfigData {
 
     public boolean isBedrockLimitSet() {
         return setBedrockLimit;
+    }
+
+    public boolean isEnabledOnlyInCreative() {
+        return enabledOnlyInCreative;
     }
 
     public Vec3d getPreviousLocation() {
