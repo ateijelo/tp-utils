@@ -10,8 +10,10 @@
     "key.tputils.tpBack": "TP Back",
 
     "text.autoconfig.tputils.title": "TP Utils Config",
-    "text.autoconfig.tputils.option.tpMethod": "TP Method",
-    "text.autoconfig.tputils.option.tpMethod.@Tooltip": "TP command, for example /tp or /tppos",
+    "text.autoconfig.tputils.option.singleplayerTpMethod": "Singleplayer TP Method",
+    "text.autoconfig.tputils.option.singleplayerTpMethod.@Tooltip": "TP command for when playing in singleplayer\nFor example /tp or /tppos",
+    "text.autoconfig.tputils.option.serverTpMethod": "Server TP Method",
+    "text.autoconfig.tputils.option.serverTpMethod.@Tooltip": "TP command for when playing on a server\nFor example /tp or /tppos",
     "text.autoconfig.tputils.option.tpThroughRange": "TP Through Range",
     "text.autoconfig.tputils.option.tpThroughRange.@Tooltip": "From how far should the mod be able \nto detect blocks to TP through",
     "text.autoconfig.tputils.option.tpOnTopRange": "TP On Top Range",

@@ -11,7 +11,9 @@ import net.minecraft.util.math.Vec3d;
 @Config(name = TpUtils.NAMESPACE)
 public class ModConfig implements ConfigData {
     @Tooltip
-    private String tpMethod = "/tp";
+    private String singleplayerTpMethod = "/tp";
+    @Tooltip
+    private String serverTpMethod = "/tppos";
     @Tooltip
     private int tpThroughRange = 256;
     @Tooltip
@@ -27,15 +29,22 @@ public class ModConfig implements ConfigData {
     @Excluded
     private Vec3d previousLocation;
 
-    public String getTpMethod() {
+    public String getTpMethod(boolean isInSingleplayer) {
+        String tpMethod = isInSingleplayer ? singleplayerTpMethod : serverTpMethod;
+
         if (tpMethod.startsWith("/")) {
             return tpMethod.substring(1);
         }
         return tpMethod;
     }
 
-    public void setTpMethod(String command) {
-        this.tpMethod = command;
+    public void setSingleplayerTpMethod(String command) {
+        this.singleplayerTpMethod = command;
+        TpUtils.saveConfig();
+    }
+
+    public void setServerTpMethod(String command) {
+        this.serverTpMethod = command;
         TpUtils.saveConfig();
     }
 
